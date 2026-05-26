@@ -3,15 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-/**
- *
- * @author Adm
- */
+import javax.swing.JOptionPane;
 public class cadastroVIEW extends javax.swing.JFrame {
 
-    /**
-     * Creates new form cadastroVIEW
-     */
+
     public cadastroVIEW() {
         initComponents();
     }
@@ -140,17 +135,32 @@ public class cadastroVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroNomeActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        try {
         ProdutosDTO produto = new ProdutosDTO();
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
         String status = "A Venda";
+        if (nome.trim().isEmpty() || valor.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos!");
+            return;
+        }
+
         produto.setNome(nome);
         produto.setValor(Integer.parseInt(valor));
         produto.setStatus(status);
-        
+
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
+        JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
+        cadastroNome.setText("");
+        cadastroValor.setText("");
         
+    } catch (NumberFormatException nfe) {
+        JOptionPane.showMessageDialog(null, "Erro: O campo Valor deve conter apenas números inteiros!");
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(null, "Erro ao realizar o cadastro: " + erro.getMessage());
+    }
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
