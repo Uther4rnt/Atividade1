@@ -19,7 +19,7 @@ public class ProdutosDAO {
     
     Connection conn;
     PreparedStatement prep;
-    ResultSet resultset;
+    ResultSet resultSet;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
     public void cadastrarProduto (ProdutosDTO produto){
